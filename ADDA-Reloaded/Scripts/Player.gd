@@ -1,5 +1,5 @@
 
-extends KinematicBody2D
+extends Actor
 
 export var  speed = 200
 export var rotation_speed = 1.5
@@ -38,3 +38,11 @@ func _physics_process(delta):
 	$AnimatedSprite.play(anim);
 	rotation += rotation_dir * rotation_speed * delta
 	velocity = move_and_slide(velocity)
+
+
+func _on_HurtBox_area_entered(area):
+	pass # Replace with function body.
+
+
+func die():
+	pass # Replace with function body.
