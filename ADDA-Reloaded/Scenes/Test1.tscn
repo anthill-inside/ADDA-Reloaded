@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scenes/OLD TILESET.tres" type="TileSet" id=1]
-[ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
-[ext_resource path="res://Scenes/Actor.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/Spear.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Tilesets/OLD TILESET.tres" type="TileSet" id=1]
+[ext_resource path="res://Weapons/Weapon.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Weapons/Crossbow.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Characters/Actor.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Characters/Player.tscn" type="PackedScene" id=5]
 
 [node name="Test1" type="Node2D"]
 
@@ -17,7 +17,6 @@ tile_data = PoolIntArray( 3, 0, 0, 4, 0, 0, 5, 3, 0, 6, 0, 0, 65537, 0, 0, 65538
 
 [node name="Actor2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 209.107, 108.668 )
-script = ExtResource( 2 )
 
 [node name="Actor3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 147.056, 171.349 )
@@ -29,5 +28,23 @@ position = Vector2( 109.74, 129.999 )
 current = true
 zoom = Vector2( 0.4, 0.4 )
 
-[node name="Spear" parent="." instance=ExtResource( 7 )]
-position = Vector2( 153.911, 78.2883 )
+[node name="Actor" parent="." instance=ExtResource( 4 )]
+position = Vector2( 86.8061, 184.326 )
+
+[node name="Actor4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 117.147, 82.4415 )
+
+[node name="Weapon" parent="." instance=ExtResource( 2 )]
+
+[node name="Actor5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 66.1861, 114.428 )
+
+[node name="Actor6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 168.82, 59.7395 )
+
+[node name="Crossbow" parent="." instance=ExtResource( 3 )]
+position = Vector2( 47.0704, 169.583 )
+
+[node name="Crossbow2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 80.183, 46.6732 )
+rotation = 2.09271
