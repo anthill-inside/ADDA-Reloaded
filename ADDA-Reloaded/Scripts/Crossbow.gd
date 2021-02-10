@@ -1,12 +1,14 @@
-extends KinematicBody2D
+#aextends KinematicBody2D
+extends Weapon
+class_name CrossBow
 
-export var damage = 1
-export var cool_down = 0
+#export var damage = 1
+#export var cool_down = 0
 export var bolt_speed = 120.0
 export var bolt_range = 120.0
 
-onready var curent_cool_down = cool_down
-onready var weapon_sprite = $WeaponSprite
+#onready var curent_cool_down = cool_down
+#onready var weapon_sprite = $WeaponSprite
 onready var Bolt = preload("res://Weapons/Bolt.tscn")
 
 func attack():
@@ -14,24 +16,25 @@ func attack():
 		curent_cool_down = 0
 		weapon_sprite.frame = 1
 		
-	var bolt = Bolt.instance()
-	bolt.damage = damage
-	#var bolt_velocity = Vector2.ZERO - transform.y * bolt_speed
-	var bolt_velocity = Vector2(0, -bolt_speed).rotated(get_parent().rotation + rotation)
-	bolt.rotation = get_parent().rotation + rotation
-	bolt.velocity = bolt_velocity
-	bolt.speed = bolt_speed
-	bolt.bolt_range = bolt_range
-	get_tree().root.add_child(bolt)
-	#add_child(bolt)# _ready is called after that
-	#bolt.rotation = rotation
-	bolt.global_position = global_position
+		var bolt = Bolt.instance()
+		bolt.damage = damage
+		#var bolt_velocity = Vector2.ZERO - transform.y * bolt_speed
+		var bolt_velocity = Vector2(0, -bolt_speed).rotated(get_parent().rotation + rotation)
+		bolt.rotation = get_parent().rotation + rotation
+		bolt.velocity = bolt_velocity
+		bolt.speed = bolt_speed
+		bolt.bolt_range = bolt_range
+		get_tree().root.add_child(bolt)
+		#add_child(bolt)# _ready is called after that
+		#bolt.rotation = rotation
+		bolt.global_position = global_position
 	
 	pass
 
 func get_input(): 
-	if Input.is_action_pressed('Click'):
-		attack()
+	#if Input.is_action_pressed('Click'):
+		#attack()
+	pass
 			
 
 func _physics_process(delta):

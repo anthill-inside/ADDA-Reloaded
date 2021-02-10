@@ -1,19 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/WeaponDamageBox.gd" type="Script" id=1]
 [ext_resource path="res://ADDA assets/arrow.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Bolt.gd" type="Script" id=3]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 1.78396
-height = 41.6588
-
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 1.43887
-height = 2.35298
+radius = 3.57322
+height = 32.8224
 
 [node name="Bolt" type="KinematicBody2D"]
-rotation = 1.5708
 collision_layer = 0
 collision_mask = 0
 script = ExtResource( 3 )
@@ -22,10 +17,6 @@ script = ExtResource( 3 )
 position = Vector2( 0.500912, -0.35021 )
 texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource( 1 )
-
 [node name="DamageBox" type="Area2D" parent="."]
 position = Vector2( 0.125, -0.5 )
 collision_layer = 32
@@ -33,7 +24,8 @@ collision_mask = 24
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageBox"]
-position = Vector2( -0.0936432, -12.2674 )
+position = Vector2( -0.00350184, -12.3314 )
+scale = Vector2( 0.5, 0.5 )
 shape = SubResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]

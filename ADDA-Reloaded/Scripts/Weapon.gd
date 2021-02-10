@@ -1,7 +1,9 @@
 extends KinematicBody2D
+class_name Weapon
 
 export var damage = 1
 export var cool_down = 0.5
+export var ground_weapon = "res://Items_Ground/Sword.tscn"
 
 onready var curent_cool_down = cool_down
 onready var damage_box = $DamageBox
@@ -13,7 +15,8 @@ func _on_hit():
 		weapon_sprite.modulate = Color("75544f4f")
 	pass
 
-
+func attack():
+	pass
 
 func _physics_process(delta):
 	if curent_cool_down < cool_down:

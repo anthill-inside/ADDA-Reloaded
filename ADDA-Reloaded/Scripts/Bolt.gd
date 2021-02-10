@@ -9,7 +9,6 @@ func _on_hit():
 	queue_free()
 
 func _ready():
-	print(bolt_range / speed)
 	$Timer.wait_time = bolt_range / speed;
 	$Timer.start()
 	

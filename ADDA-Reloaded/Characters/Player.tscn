@@ -2,8 +2,10 @@
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Health.gd" type="Script" id=2]
-[ext_resource path="res://Weapons/Crossbow.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Animated Sprites/HeroAnimations.tres" type="SpriteFrames" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 16.8227
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2147483650
@@ -19,6 +21,7 @@ frames = ExtResource( 4 )
 animation = "Idle"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 polygon = PoolVector2Array( 3.73546, 17.0992, 15.6283, 4.1763, 15.6283, -1.44235, 4.29732, -13.897, -7.4082, -7.81017, -9.28108, 0.617813, -7.50185, 10.7314 )
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -26,13 +29,25 @@ collision_layer = 8
 collision_mask = 32
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="HitBox"]
+visible = false
 polygon = PoolVector2Array( 3.73546, 17.0992, 15.6283, 4.1763, 15.6283, -1.44235, 4.29732, -13.897, -7.4082, -7.81017, -9.28108, 0.617813, -7.50185, 10.7314 )
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 2 )
+max_health = 4
 
-[node name="Crossbow" parent="." instance=ExtResource( 3 )]
-position = Vector2( 25.918, 1.90673 )
-rotation = 1.5708
+[node name="WeaponSpawn" type="Node2D" parent="."]
+position = Vector2( 13.6759, 1.18921 )
+
+[node name="Interaction zone" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction zone"]
+visible = false
+position = Vector2( 2.22976, 1.78381 )
+shape = SubResource( 1 )
 [connection signal="area_entered" from="HitBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="Died" from="Health" to="." method="die"]
+[connection signal="area_entered" from="Interaction zone" to="." method="_on_Interaction_zone_area_entered"]
+[connection signal="area_exited" from="Interaction zone" to="." method="_on_Interaction_zone_area_exited"]
