@@ -30,6 +30,8 @@ func _ready():
 		if _i.name == "WeaponSpawn":
 			weapon_spawn = _i
 
+
+signal death
 func die():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
@@ -41,6 +43,7 @@ func die():
 	$HitBox.collision_layer = 0
 	$HitBox.collision_mask = 0
 	z_index -= 1
+	emit_signal("death")
 	#queue_free()
 func get_input():
 	pass

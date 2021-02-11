@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ADDA assets/Pitchfork.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Weapon.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/WeaponDamageBox.gd" type="Script" id=3]
+[ext_resource path="res://ADDA assets/PitchforkIcon.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1.46862, 22.0878 )
@@ -21,6 +22,7 @@ collision_layer = 0
 collision_mask = 0
 script = ExtResource( 2 )
 ground_weapon = "res://Items_Ground/Pitchfork.tscn"
+icon = ExtResource( 4 )
 
 [node name="WeaponSprite" type="Sprite" parent="."]
 position = Vector2( 1.229, -21.011 )

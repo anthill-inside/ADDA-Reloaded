@@ -1,5 +1,9 @@
 extends Area2D
 
+var is_active = false
+var tip
+var sprite
+
 signal interacted(player)
 
 func interact(player):
@@ -12,9 +16,16 @@ func interact(player):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	tip = get_node("../Tip")
+	sprite = get_node("../Sprite")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if is_active :
+		tip.visible = true
+		sprite.modulate = Color("fffb00")
+	else:
+		tip.visible = false
+		sprite.modulate = Color("ffffff")
+		

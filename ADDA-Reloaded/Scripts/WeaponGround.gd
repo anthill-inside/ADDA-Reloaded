@@ -8,10 +8,11 @@ onready var Weapon = load(weapon_name)
 func pick_up(player):
 	var weapon = Weapon.instance()
 	if weapon != null:
-		player.drop_weapon()
-		player.add_child(weapon)
-		player.weapon = weapon
-		weapon.global_position = player.weapon_spawn.global_position
+#		player.drop_weapon()
+#		player.add_child(weapon)
+#		player.weapon = weapon
+#		weapon.global_position = player.weapon_spawn.global_position
+		player.add_weapon(weapon)
 		queue_free()
 				
 

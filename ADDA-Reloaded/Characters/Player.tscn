@@ -34,7 +34,7 @@ polygon = PoolVector2Array( 3.73546, 17.0992, 15.6283, 4.1763, 15.6283, -1.44235
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 2 )
-max_health = 4
+max_health = 8
 
 [node name="WeaponSpawn" type="Node2D" parent="."]
 position = Vector2( 13.6759, 1.18921 )
@@ -49,5 +49,6 @@ position = Vector2( 2.22976, 1.78381 )
 shape = SubResource( 1 )
 [connection signal="area_entered" from="HitBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="Died" from="Health" to="." method="die"]
+[connection signal="HealthChanged" from="Health" to="." method="_on_Health_HealthChanged"]
 [connection signal="area_entered" from="Interaction zone" to="." method="_on_Interaction_zone_area_entered"]
 [connection signal="area_exited" from="Interaction zone" to="." method="_on_Interaction_zone_area_exited"]

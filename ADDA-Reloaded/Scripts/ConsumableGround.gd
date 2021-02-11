@@ -8,8 +8,7 @@ onready var Consumable = load(consumable_name)
 func pick_up(player):
 	var consumable = Consumable.instance()
 	if consumable != null:
-		player.drop_consumable()
-		player.consumable = consumable
+		player.add_consumable(consumable)
 		queue_free()
 				
 

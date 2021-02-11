@@ -12,12 +12,25 @@ class_name Player
 var item_to_interact  = null
 
 
+
 func _input(event):
+	if event.is_action_pressed('Sword'):
+		add_weapon(Weapons.Sword.instance())			
+	if event.is_action_pressed('Mace'):
+		add_weapon(Weapons.Mace.instance())
+	if event.is_action_pressed("Crossbow"):
+		add_weapon(Weapons.Crossbow.instance())
+	if event.is_action_pressed("Spear"):
+		add_weapon(Weapons.Spear.instance())
+	if event.is_action_pressed("Pitchfork"):
+		add_weapon(Weapons.Pitchfork.instance())
+	
 	if event.is_action_pressed("Interact"):
 		if(item_to_interact != null):
 			item_to_interact.interact(self)
-	if event.is_action_pressed("Use"):
+	if event.is_action_pressed("Use") && consumable != null:
 		consumable.use(self)
+		emit_signal("ConsumableChanged",null)
 
 var consumable 
 
@@ -30,13 +43,21 @@ func drop_consumable():
 		ground_consumable.global_position = global_position + Vector2(rand_range(20,40), rand_range(20,40))
 		ground_consumable.rotation_degrees = rand_range(0,360)
 		consumable.queue_free()
-		item_to_interact = ground_consumable
 		print("consumable dropped")
 	else:
 		print("null")
+func add_consumable(new_consumable):
+	drop_consumable()
+	consumable = new_consumable
+	emit_signal("ConsumableChanged",consumable)
 
-
-
+func add_weapon(new_weapon: Weapon):
+	drop_weapon()
+	add_child(new_weapon)
+	weapon = new_weapon
+	weapon.global_position = weapon_spawn.global_position
+	emit_signal("WeaponChanged", weapon)
+		
 
 func drop_weapon():
 	if weapon != null:
@@ -46,7 +67,6 @@ func drop_weapon():
 		ground_weapon.global_position = global_position + Vector2(rand_range(20,40), rand_range(20,40))
 		ground_weapon.rotation_degrees = rand_range(0,360)
 		weapon.queue_free()
-		item_to_interact = ground_weapon
 		print("weapon dropped")
 
 
@@ -67,37 +87,6 @@ func get_input():
 			for _i in self.get_children ():
 					if _i is Weapon:
 						_i.attack()
-						
-		if Input.is_action_pressed('Sword'):
-			if weapon != null:
-				weapon.queue_free()
-			weapon = Weapons.Sword.instance()
-			add_child(weapon)
-			weapon.global_position = weapon_spawn.global_position
-		if Input.is_action_pressed('Mace'):
-			if weapon != null:
-				weapon.queue_free()
-			weapon = Weapons.Mace.instance()
-			add_child(weapon)
-			weapon.global_position = weapon_spawn.global_position
-		if Input.is_action_pressed("Crossbow"):
-			if weapon != null:
-				weapon.queue_free()
-			weapon = Weapons.Crossbow.instance()
-			add_child(weapon)
-			weapon.global_position = weapon_spawn.global_position
-		if Input.is_action_pressed("Spear"):
-			if weapon != null:
-				weapon.queue_free()
-			weapon = Weapons.Spear.instance()
-			add_child(weapon)
-			weapon.global_position = weapon_spawn.global_position
-		if Input.is_action_pressed("Pitchfork"):
-			if weapon != null:
-				weapon.queue_free()
-			weapon = Weapons.Pitchfork.instance()
-			add_child(weapon)
-			weapon.global_position = weapon_spawn.global_position
 
 
 
@@ -105,12 +94,33 @@ func get_input():
 	#pass # Replace with function body.
 
 
-
+func _set_active_thingy(thingy):
+	if(item_to_interact != null):
+		item_to_interact.is_active = null
+	item_to_interact = thingy
+	thingy.is_active = true
+	
+func _free_active_thingy(thingy):
+	item_to_interact = null
+	thingy.is_active = false
 
 
 func _on_Interaction_zone_area_entered(area):
-	item_to_interact = area
-
+	_set_active_thingy(area)
 
 func _on_Interaction_zone_area_exited(area):
-	item_to_interact = null
+	_free_active_thingy(area)
+
+signal HealthChanged(max_health, current_health)
+
+func send_health():
+	emit_signal("HealthChanged",health.max_health, health.current_health)
+
+
+signal WeaponChanged(weapon)
+signal ConsumableChanged(consumable)
+func _on_Health_HealthChanged(max_health, current_health):
+	emit_signal("HealthChanged",max_health, current_health)
+
+func _ready():
+	send_health()

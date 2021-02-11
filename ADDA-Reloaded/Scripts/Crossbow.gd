@@ -28,7 +28,7 @@ func attack():
 		#add_child(bolt)# _ready is called after that
 		#bolt.rotation = rotation
 		bolt.global_position = global_position
-	
+		emit_signal("attack")
 	pass
 
 func get_input(): 

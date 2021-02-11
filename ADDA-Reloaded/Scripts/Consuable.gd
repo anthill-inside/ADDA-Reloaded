@@ -2,6 +2,7 @@ extends Node2D
 class_name Consumable
 
 export var consumable_ground_name = "res://Items_Ground/Potion.tscn"
+export var icon : Texture
 var ConsumableGround = load(consumable_ground_name)
 # Declare member variables here. Examples:
 # var a = 2

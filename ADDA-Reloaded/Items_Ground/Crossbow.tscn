@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ADDA assets/CrossBow.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/WeaponGround.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/Interactable.gd" type="Script" id=3]
+[ext_resource path="res://Tip.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 2.52706
@@ -15,7 +16,7 @@ radius = 13.0135
 radius = 3.86492
 height = 17.5901
 
-[node name="Sword Ground" type="RigidBody2D"]
+[node name="CrossbowGround" type="RigidBody2D"]
 position = Vector2( 0.588036, -1.64355 )
 z_index = -1
 collision_layer = 32
@@ -24,7 +25,7 @@ gravity_scale = 0.0
 script = ExtResource( 2 )
 weapon_name = "res://Weapons/Crossbow.tscn"
 
-[node name="SwordTopDown" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 2
 frame = 1
@@ -45,4 +46,7 @@ shape = SubResource( 2 )
 position = Vector2( -0.44194, -7.47671 )
 rotation = 1.5708
 shape = SubResource( 3 )
+
+[node name="Tip" parent="." instance=ExtResource( 4 )]
+visible = true
 [connection signal="interacted" from="InteractionArea" to="." method="pick_up"]

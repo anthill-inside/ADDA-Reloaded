@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://OLD TILESET.tres" type="TileSet" id=1]
 [ext_resource path="res://Characters/Actor.tscn" type="PackedScene" id=2]
@@ -10,8 +10,15 @@
 [ext_resource path="res://Items_Ground/Mace.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Items_Ground/Potion.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Weapons/Spear.tscn" type="PackedScene" id=10]
+[ext_resource path="res://UI.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scripts/Test1.gd" type="Script" id=12]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource( 12 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" instance=ExtResource( 11 )]
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -3

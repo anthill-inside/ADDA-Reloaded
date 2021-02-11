@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Crossbow.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/WeaponDamageBox.gd" type="Script" id=2]
 [ext_resource path="res://ADDA assets/CrossBow.png" type="Texture" id=3]
+[ext_resource path="res://ADDA assets/CrossbowIcon.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 1.78396
@@ -17,8 +18,9 @@ rotation = 1.5708
 collision_layer = 0
 collision_mask = 0
 script = ExtResource( 1 )
-cool_down = 1.0
+cool_down = 3.0
 ground_weapon = "res://Items_Ground/Crossbow.tscn"
+icon = ExtResource( 4 )
 bolt_speed = 140.0
 bolt_range = 240.0
 

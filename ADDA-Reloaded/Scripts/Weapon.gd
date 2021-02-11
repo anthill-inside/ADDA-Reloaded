@@ -4,15 +4,20 @@ class_name Weapon
 export var damage = 1
 export var cool_down = 0.5
 export var ground_weapon = "res://Items_Ground/Sword.tscn"
+export var icon : Texture
 
 onready var curent_cool_down = cool_down
 onready var damage_box = $DamageBox
 onready var weapon_sprite = $WeaponSprite
 
+
+signal attack()
+
 func _on_hit():
 	if curent_cool_down >= cool_down:
 		curent_cool_down = 0
 		weapon_sprite.modulate = Color("75544f4f")
+		emit_signal("attack")
 	pass
 
 func attack():

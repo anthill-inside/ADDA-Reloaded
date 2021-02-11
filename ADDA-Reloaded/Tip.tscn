@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://enter-sansman.bold.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=4]
+size = 17
+font_data = ExtResource( 1 )
+
+[node name="Tip" type="Control"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color( 1, 1, 1, 0.627451 )
+margin_left = -10.6398
+margin_top = -10.8789
+margin_right = 11.3602
+margin_bottom = 11.1211
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -9.80675
+margin_top = -50.5387
+margin_right = 11.1933
+margin_bottom = -29.5387
+custom_fonts/font = SubResource( 4 )
+text = "E"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
