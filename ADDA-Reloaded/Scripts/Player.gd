@@ -96,20 +96,21 @@ func get_input():
 
 func _set_active_thingy(thingy):
 	if(item_to_interact != null):
-		item_to_interact.is_active = null
+		_free_active_thingy()
 	item_to_interact = thingy
 	thingy.is_active = true
 	
-func _free_active_thingy(thingy):
-	item_to_interact = null
-	thingy.is_active = false
+func _free_active_thingy():
+	if(item_to_interact != null):
+		item_to_interact.is_active = false
+		item_to_interact = null
 
 
 func _on_Interaction_zone_area_entered(area):
 	_set_active_thingy(area)
 
 func _on_Interaction_zone_area_exited(area):
-	_free_active_thingy(area)
+	_free_active_thingy()
 
 signal HealthChanged(max_health, current_health)
 
