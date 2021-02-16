@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 export var weapon_name = "res://Weapons/Sword.tscn"
+export var pick_up_sound = "res://Audio/420612__glaneur-de-sons__sword-swing-b-strong-02.wav"
 onready var Weapon = load(weapon_name)
 # Declare member variables here. Examples:
 # var a = 2
@@ -12,6 +13,7 @@ func pick_up(player):
 #		player.add_child(weapon)
 #		player.weapon = weapon
 #		weapon.global_position = player.weapon_spawn.global_position
+		AudioManager.play(pick_up_sound)
 		player.add_weapon(weapon)
 		queue_free()
 				

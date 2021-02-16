@@ -16,6 +16,7 @@ collision_layer = 0
 collision_mask = 0
 script = ExtResource( 1 )
 icon = ExtResource( 4 )
+attack_sound = "res://Audio/420612__glaneur-de-sons__sword-swing-b-strong-02.wav"
 
 [node name="WeaponSprite" type="Sprite" parent="."]
 position = Vector2( 0.500912, -10.383 )

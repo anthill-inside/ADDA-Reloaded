@@ -29,6 +29,7 @@ polygon = PoolVector2Array( 3.73546, 17.0992, 15.6283, 4.1763, 15.6283, -1.44235
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 2 )
+max_health = 5
 
 [node name="WeaponSpawn" type="Node2D" parent="."]
 position = Vector2( 13.8245, 1.33786 )

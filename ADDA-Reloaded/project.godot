@@ -48,6 +48,10 @@ config/name="ADDA-Reloaded"
 run/main_scene="res://Scenes/Test2.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+AudioManager="*res://AudioManager.gd"
+
 [input]
 
 Up={

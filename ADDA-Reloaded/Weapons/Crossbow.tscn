@@ -4,23 +4,22 @@
 [ext_resource path="res://Scripts/WeaponDamageBox.gd" type="Script" id=2]
 [ext_resource path="res://ADDA assets/CrossBow.png" type="Texture" id=3]
 [ext_resource path="res://ADDA assets/CrossbowIcon.png" type="Texture" id=4]
+[ext_resource path="res://Audio/Bow2.wav" type="AudioStream" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 1.78396
 height = 41.6588
-
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 3.57322
-height = 32.8224
 
 [node name="Crossbow" type="KinematicBody2D"]
 rotation = 1.5708
 collision_layer = 0
 collision_mask = 0
 script = ExtResource( 1 )
-cool_down = 3.0
+damage = 2
+cool_down = 1.0
 ground_weapon = "res://Items_Ground/Crossbow.tscn"
 icon = ExtResource( 4 )
+attack_sound = "res://Audio/Bow2.wav"
 bolt_speed = 140.0
 bolt_range = 240.0
 
@@ -40,9 +39,6 @@ collision_layer = 0
 collision_mask = 0
 script = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageBox"]
-position = Vector2( 0.0883904, -8.783 )
-scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 2 )
-disabled = true
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
 [connection signal="area_entered" from="DamageBox" to="DamageBox" method="_on_DamageBox_area_entered"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/stone fortress.ogg-31d353856a251c0e32b8fa2079e466fa.oggstr"
+
+[deps]
+
+source_file="res://Audio/Music/stone fortress.ogg"
+dest_files=[ "res://.import/stone fortress.ogg-31d353856a251c0e32b8fa2079e466fa.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

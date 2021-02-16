@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/whack.wav-cab05ee893d688834b50b86eb917e385.sample"
+
+[deps]
+
+source_file="res://Audio/whack.wav"
+dest_files=[ "res://.import/whack.wav-cab05ee893d688834b50b86eb917e385.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

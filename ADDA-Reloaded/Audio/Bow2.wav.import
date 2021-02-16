@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Bow2.wav-dd4ffb77fc38b89d347cb088df64fc04.sample"
+
+[deps]
+
+source_file="res://Audio/Bow2.wav"
+dest_files=[ "res://.import/Bow2.wav-dd4ffb77fc38b89d347cb088df64fc04.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

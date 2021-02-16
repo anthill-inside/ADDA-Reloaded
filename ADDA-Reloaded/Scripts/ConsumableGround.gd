@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 export var consumable_name = "res://Consumables/Potion.tscn"
+export var pick_up_sound = "res://Audio/Potion.wav"
 onready var Consumable = load(consumable_name)
 # Declare member variables here. Examples:
 # var a = 2
@@ -9,6 +10,7 @@ func pick_up(player):
 	var consumable = Consumable.instance()
 	if consumable != null:
 		player.add_consumable(consumable)
+		AudioManager.play(pick_up_sound)
 		queue_free()
 				
 

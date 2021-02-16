@@ -11,6 +11,15 @@ onready var Weapons = {
 	"Pitchfork": preload("res://Weapons/Pitchfork.tscn"),
 }
 
+export var groans = [
+	"res://Audio/scream-1.wav",
+	"res://Audio/scream-2.wav",
+	"res://Audio/scream-3.wav",
+	"res://Audio/scream-4.wav",
+	"res://Audio/scream-5.wav",
+	"res://Audio/scream-6.wav",
+#"res://Audio/Potion.wav"
+]
 
 export var  speed = 200
 export var rotation_speed = 1.5
@@ -44,6 +53,7 @@ func die():
 	$HitBox.collision_mask = 0
 	z_index -= 1
 	emit_signal("death")
+	AudioManager.play(groans[randi() % groans.size()]) 
 	#queue_free()
 func get_input():
 	pass

@@ -17,6 +17,8 @@ rotation = 1.5708
 collision_layer = 0
 collision_mask = 0
 script = ExtResource( 3 )
+ground_weapon = "res://Audio/arrow.wav"
+attack_sound = "res://Audio/arrow.wav"
 
 [node name="WeaponSprite" type="Sprite" parent="."]
 position = Vector2( 0.500912, -0.35021 )

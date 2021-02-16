@@ -40,7 +40,7 @@ func _health_changed(new_max_health, new_current_healh):#
 		curent_box = curent_health / 2 - 1
 	else:
 		curent_box = curent_health / 2
-	for i in boxes_now:
+	for i in n_boxes:
 		if i < curent_box:
 			heart_boxes[i].texture = heart_texture
 		elif i == curent_box:

@@ -7,9 +7,11 @@ class_name CrossBow
 export var bolt_speed = 120.0
 export var bolt_range = 120.0
 
-#onready var curent_cool_down = cool_down
+
 #onready var weapon_sprite = $WeaponSprite
 onready var Bolt = preload("res://Weapons/Bolt.tscn")
+onready var audio = $AudioStreamPlayer2D 
+
 
 func attack():
 	if curent_cool_down >= cool_down:
@@ -29,6 +31,8 @@ func attack():
 		#bolt.rotation = rotation
 		bolt.global_position = global_position
 		emit_signal("attack")
+		state = WEAPON_STATE.USED
+		AudioManager.play(attack_sound)
 	pass
 
 func get_input(): 
@@ -41,5 +45,8 @@ func _physics_process(delta):
 	if curent_cool_down < cool_down:
 		curent_cool_down += delta
 	else:
-		weapon_sprite.frame = 0
+		if state != WEAPON_STATE.READY:
+			state = WEAPON_STATE.READY
+			weapon_sprite.frame = 0
+			AudioManager.play(ready_sound)
 		get_input()

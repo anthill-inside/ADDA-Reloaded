@@ -23,6 +23,7 @@ collision_mask = 0
 script = ExtResource( 2 )
 ground_weapon = "res://Items_Ground/Pitchfork.tscn"
 icon = ExtResource( 4 )
+attack_sound = "res://Audio/Weapon_Ready.wav"
 
 [node name="WeaponSprite" type="Sprite" parent="."]
 position = Vector2( 1.229, -21.011 )

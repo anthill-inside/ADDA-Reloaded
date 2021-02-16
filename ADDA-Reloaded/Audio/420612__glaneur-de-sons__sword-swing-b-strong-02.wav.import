@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/420612__glaneur-de-sons__sword-swing-b-strong-02.wav-8fb001e2cbe36d7bcb71526d7de5c427.sample"
+
+[deps]
+
+source_file="res://Audio/420612__glaneur-de-sons__sword-swing-b-strong-02.wav"
+dest_files=[ "res://.import/420612__glaneur-de-sons__sword-swing-b-strong-02.wav-8fb001e2cbe36d7bcb71526d7de5c427.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

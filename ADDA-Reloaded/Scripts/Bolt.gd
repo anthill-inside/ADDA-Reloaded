@@ -6,7 +6,10 @@ var speed : float
 
 
 func _on_hit():
+	#print(1)
+	AudioManager.play(attack_sound)
 	queue_free()
+	#._on_hit()
 
 func _ready():
 	$Timer.wait_time = bolt_range / speed;

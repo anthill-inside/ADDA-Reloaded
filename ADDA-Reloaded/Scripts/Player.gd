@@ -56,6 +56,7 @@ func add_weapon(new_weapon: Weapon):
 	add_child(new_weapon)
 	weapon = new_weapon
 	weapon.global_position = weapon_spawn.global_position
+	weapon.play_ready_sound = true
 	emit_signal("WeaponChanged", weapon)
 		
 
