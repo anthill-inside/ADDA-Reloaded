@@ -61,7 +61,8 @@ func _weapon_changed(new_weapon):
 		curent_weapon.value = weapon.curent_cool_down * 10
 	else:
 		curent_weapon.texture_under = default_weapon_texture
-func _consumable_changed(consumable):#
+func _consumable_changed(new_consumable):#
+	consumable = new_consumable
 	if consumable != null:
 		curent_consumable.texture = consumable.icon
 	else:

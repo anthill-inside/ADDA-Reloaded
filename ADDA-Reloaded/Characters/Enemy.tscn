@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Characters/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Health.gd" type="Script" id=2]
+[ext_resource path="res://Animated Sprites/EnemyAnimations.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://StateMachine.gd" type="Script" id=4]
+[ext_resource path="res://Characters/Idle.gd" type="Script" id=5]
+[ext_resource path="res://Characters/Attack.gd" type="Script" id=6]
+
+[node name="Enemy" type="KinematicBody2D"]
+collision_layer = 2147483652
+collision_mask = 7
+script = ExtResource( 1 )
+speed = 150
+rotation_speed = 1.5
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+modulate = Color( 0.972549, 0.752941, 0.752941, 1 )
+rotation = 1.5708
+scale = Vector2( 1.6, 1.6 )
+frames = ExtResource( 3 )
+animation = "Idle"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( 3.73546, 17.0992, 15.6283, 4.1763, 15.6283, -1.44235, 4.29732, -13.897, -7.4082, -7.81017, -9.28108, 0.617813, -7.50185, 10.7314 )
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 24
+collision_mask = 32
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="HitBox"]
+visible = false
+polygon = PoolVector2Array( 3.73546, 17.0992, 15.6283, 4.1763, 15.6283, -1.44235, 4.29732, -13.897, -7.4082, -7.81017, -9.28108, 0.617813, -7.50185, 10.7314 )
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource( 2 )
+max_health = 5
+
+[node name="WeaponSpawn" type="Node2D" parent="."]
+position = Vector2( 13.8245, 1.33786 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 4 )
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 5 )
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource( 6 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+[connection signal="area_entered" from="HitBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="Died" from="Health" to="." method="die"]
+[connection signal="HealthChanged" from="Health" to="StateMachine/Idle" method="_on_Health_HealthChanged"]

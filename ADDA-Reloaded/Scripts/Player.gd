@@ -32,43 +32,6 @@ func _input(event):
 		consumable.use(self)
 		emit_signal("ConsumableChanged",null)
 
-var consumable 
-
-func drop_consumable():
-	print("dropping")
-	if consumable != null && consumable is Consumable:
-		var Ground_Consumable = load(consumable.consumable_ground_name)
-		var ground_consumable = Ground_Consumable.instance()
-		get_tree().root.add_child(ground_consumable)
-		ground_consumable.global_position = global_position + Vector2(rand_range(20,40), rand_range(20,40))
-		ground_consumable.rotation_degrees = rand_range(0,360)
-		consumable.queue_free()
-		print("consumable dropped")
-	else:
-		print("null")
-func add_consumable(new_consumable):
-	drop_consumable()
-	consumable = new_consumable
-	emit_signal("ConsumableChanged",consumable)
-
-func add_weapon(new_weapon: Weapon):
-	drop_weapon()
-	add_child(new_weapon)
-	weapon = new_weapon
-	weapon.global_position = weapon_spawn.global_position
-	weapon.play_ready_sound = true
-	emit_signal("WeaponChanged", weapon)
-		
-
-func drop_weapon():
-	if weapon != null:
-		var Ground_Weapon = load(weapon.ground_weapon)
-		var ground_weapon = Ground_Weapon.instance()
-		get_tree().root.add_child(ground_weapon)
-		ground_weapon.global_position = global_position + Vector2(rand_range(20,40), rand_range(20,40))
-		ground_weapon.rotation_degrees = rand_range(0,360)
-		weapon.queue_free()
-		print("weapon dropped")
 
 
 func get_input():
@@ -80,7 +43,7 @@ func get_input():
 		if Input.is_action_pressed('Left'):
 			rotation_dir -= 1
 		if Input.is_action_pressed('Down'):
-			velocity -= transform.x * speed
+			velocity -= transform.x * speed * 0.8
 		if Input.is_action_pressed('Up'):
 			velocity += transform.x * speed 
 			
@@ -90,7 +53,9 @@ func get_input():
 						_i.attack()
 
 
-
+func _physics_process(delta):		
+	rotation += rotation_dir * rotation_speed * delta
+	velocity = move_and_slide(velocity)
 #func _on_HurtBox_area_entered(area):
 	#pass # Replace with function body.
 
@@ -108,9 +73,15 @@ func _free_active_thingy():
 
 
 func _on_Interaction_zone_area_entered(area):
-	_set_active_thingy(area)
+	if !health.is_dead:
+		_set_active_thingy(area)
 
 func _on_Interaction_zone_area_exited(area):
+	_free_active_thingy()
+
+
+func die():
+	.die()
 	_free_active_thingy()
 
 signal HealthChanged(max_health, current_health)
@@ -125,4 +96,7 @@ func _on_Health_HealthChanged(max_health, current_health):
 	emit_signal("HealthChanged",max_health, current_health)
 
 func _ready():
+	._ready()
+	add_consumable(Consumables.Potion.instance())
 	send_health()
+	NodesManager.player = self

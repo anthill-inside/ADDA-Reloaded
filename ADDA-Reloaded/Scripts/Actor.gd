@@ -3,13 +3,18 @@ extends KinematicBody2D
 class_name Actor
 
 
-onready var Weapons = {
+export onready var Weapons = {
 	"Sword": preload("res://Weapons/Sword.tscn"),
 	"Mace": preload("res://Weapons/Mace.tscn"),
 	"Crossbow": preload("res://Weapons/Crossbow.tscn"),
 	"Spear": preload("res://Weapons/Spear.tscn"),
 	"Pitchfork": preload("res://Weapons/Pitchfork.tscn"),
 }
+export onready var Consumables = {
+	"Potion": preload("res://Consumables/Potion.tscn"),
+}
+
+export var play_ready_sound = false
 
 export var groans = [
 	"res://Audio/scream-1.wav",
@@ -24,7 +29,7 @@ export var groans = [
 export var  speed = 200
 export var rotation_speed = 1.5
 
-var velocity = Vector2.ZERO
+var velocity: = Vector2.ZERO
 var rotation_dir = 0
 
 var anim = "Idle"
@@ -38,9 +43,51 @@ func _ready():
 	for _i in self.get_children ():
 		if _i.name == "WeaponSpawn":
 			weapon_spawn = _i
+			
+	var w = Weapons.values()
+	add_weapon(w[randi() % Weapons.size()].instance())
 
 
+var consumable 
 signal death
+
+func drop_consumable():
+	print("dropping")
+	if consumable != null && consumable is Consumable:
+		var Ground_Consumable = load(consumable.consumable_ground_name)
+		var ground_consumable = Ground_Consumable.instance()
+		get_tree().root.add_child(ground_consumable)
+		ground_consumable.global_position = global_position + Vector2(rand_range(20,40), rand_range(20,40))
+		ground_consumable.rotation_degrees = rand_range(0,360)
+		consumable.queue_free()
+		print("consumable dropped")
+	else:
+		print("null")
+func add_consumable(new_consumable: Consumable):
+	drop_consumable()
+	consumable = new_consumable
+	emit_signal("ConsumableChanged",consumable)
+
+func add_weapon(new_weapon: Weapon):
+	drop_weapon()
+	add_child(new_weapon)
+	weapon = new_weapon
+	weapon.global_position = weapon_spawn.global_position
+	weapon.play_ready_sound = play_ready_sound
+	emit_signal("WeaponChanged", weapon)
+		
+
+func drop_weapon():
+	if weapon != null:
+		var Ground_Weapon = load(weapon.ground_weapon)
+		var ground_weapon = Ground_Weapon.instance()
+		get_tree().root.add_child(ground_weapon)
+		ground_weapon.global_position = global_position + Vector2(rand_range(20,40), rand_range(20,40))
+		ground_weapon.rotation_degrees = rand_range(0,360)
+		weapon.queue_free()
+		print("weapon dropped")
+
+
 func die():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
@@ -54,39 +101,11 @@ func die():
 	z_index -= 1
 	emit_signal("death")
 	AudioManager.play(groans[randi() % groans.size()]) 
+	drop_consumable()
+	drop_weapon()
 	#queue_free()
 func get_input():
 	pass
-#	if Input.is_action_pressed('Sword'):
-#		if weapon != null:
-#			weapon.queue_free()
-#		weapon = Weapons.Sword.instance()
-#		add_child(weapon)
-#		weapon.global_position = weapon_spawn.global_position
-#	if Input.is_action_pressed('Mace'):
-#		if weapon != null:
-#			weapon.queue_free()
-#		weapon = Weapons.Mace.instance()
-#		add_child(weapon)
-#		weapon.global_position = weapon_spawn.global_position
-#	if Input.is_action_pressed("Crossbow"):
-#		if weapon != null:
-#			weapon.queue_free()
-#		weapon = Weapons.Crossbow.instance()
-#		add_child(weapon)
-#		weapon.global_position = weapon_spawn.global_position
-#	if Input.is_action_pressed("Spear"):
-#		if weapon != null:
-#			weapon.queue_free()
-#		weapon = Weapons.Spear.instance()
-#		add_child(weapon)
-#		weapon.global_position = weapon_spawn.global_position
-#	if Input.is_action_pressed("Pitchfork"):
-#		if weapon != null:
-#			weapon.queue_free()
-#		weapon = Weapons.Pitchfork.instance()
-#		add_child(weapon)
-#		weapon.global_position = weapon_spawn.global_position
 	
 func _physics_process(delta):
 	get_input()
@@ -95,17 +114,15 @@ func _physics_process(delta):
 		if velocity == Vector2.ZERO:
 			anim = "Idle"
 		else:
-			if velocity.length() < 1.0:
-				velocity = 0
+			if velocity.length() < 0.01:
+				velocity = Vector2.ZERO
 				
 			if velocity.length() > 0.0:
 				anim = "Walk"
 			else:
 				anim = "Idle"
-		
+	
 	$AnimatedSprite.play(anim);
-	rotation += rotation_dir * rotation_speed * delta
-	velocity = move_and_slide(velocity)
 
 #func _ready():
 	#health.connect("Died",self,"die")

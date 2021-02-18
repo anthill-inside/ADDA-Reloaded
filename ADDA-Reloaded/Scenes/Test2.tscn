@@ -1,15 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://OLD TILESET.tres" type="TileSet" id=1]
-[ext_resource path="res://Characters/Actor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Characters/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Items_Ground/Sword.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Items_Ground/Pitchfork.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Items_Ground/Spear.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Characters/Enemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Items_Ground/Crossbow.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Items_Ground/Mace.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Items_Ground/Potion.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Weapons/Spear.tscn" type="PackedScene" id=10]
 [ext_resource path="res://UI.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Test1.gd" type="Script" id=12]
 
@@ -35,52 +31,34 @@ format = 1
 tile_data = PoolIntArray( -65542, 11, 0, -65541, 12, 0, -6, 2, 0, -5, 4, 0, 131070, 1, 0, 131071, 1, 0, 65536, 1, 0, 65537, 1, 0, 65540, 1, 0, 65541, 1, 0, 65542, 1, 0, 65543, 1, 0, 262146, 11, 0, 262147, 13, 0, 262148, 12, 0, 327682, 6, 0, 327683, 10, 0, 327684, 9, 0, 393218, 2, 0, 393219, 5, 0, 393220, 4, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( -185.523, 161.427 )
+position = Vector2( -17.7152, 112.039 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
 zoom = Vector2( 0.5, 0.5 )
 smoothing_enabled = true
 
-[node name="Actor" parent="." instance=ExtResource( 2 )]
-position = Vector2( -95.439, 129.929 )
+[node name="Items" type="Node2D" parent="."]
 
-[node name="Actor2" parent="." instance=ExtResource( 2 )]
-position = Vector2( -60.1612, 221.903 )
+[node name="Enemies" type="Node2D" parent="."]
 
-[node name="Actor3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 109.284, 167.246 )
+[node name="CrossbowGround" parent="." instance=ExtResource( 7 )]
+position = Vector2( -88.5735, 198.276 )
 
-[node name="Sword Ground" parent="." instance=ExtResource( 4 )]
-position = Vector2( -46.0571, 146.541 )
+[node name="MaceGround" parent="." instance=ExtResource( 8 )]
+position = Vector2( -130.666, 106.796 )
 
-[node name="Sword Ground2" parent="." instance=ExtResource( 4 )]
-position = Vector2( -46.057, 180 )
+[node name="PotionGround" parent="." instance=ExtResource( 9 )]
+position = Vector2( -140.768, 160.113 )
 
-[node name="Sword Ground3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 30, 146.541 )
+[node name="PotionGround2" parent="." instance=ExtResource( 9 )]
+position = Vector2( -72.2977, 98.9385 )
 
-[node name="Sword Ground4" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, 146.541 )
+[node name="Actor2" parent="." instance=ExtResource( 4 )]
+position = Vector2( -50.4366, 183.644 )
 
-[node name="Sword Ground5" parent="." instance=ExtResource( 8 )]
-position = Vector2( -151.302, 206.002 )
+[node name="Enemy" parent="." instance=ExtResource( 4 )]
+position = Vector2( -181.089, 214.218 )
 
-[node name="Sword Ground6" parent="." instance=ExtResource( 6 )]
-position = Vector2( -173.897, 94.216 )
-
-[node name="Sword Ground7" parent="." instance=ExtResource( 7 )]
-position = Vector2( -113.247, 76.9725 )
-
-[node name="Sword Ground8" parent="." instance=ExtResource( 5 )]
-position = Vector2( -101.95, 234.543 )
-
-[node name="Sword Ground9" parent="." instance=ExtResource( 9 )]
-position = Vector2( -72.1285, 85.8582 )
-
-[node name="Sword Ground10" parent="." instance=ExtResource( 9 )]
-position = Vector2( -20.4953, 100.45 )
-
-[node name="Weapon" parent="." instance=ExtResource( 10 )]
-position = Vector2( 90.0403, 195.258 )
-rotation = 4.70875
+[node name="Enemy2" parent="." instance=ExtResource( 4 )]
+position = Vector2( -192.981, 89.9457 )
