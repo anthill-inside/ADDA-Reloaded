@@ -11,8 +11,8 @@
 collision_layer = 2147483652
 collision_mask = 7
 script = ExtResource( 1 )
-speed = 150
-rotation_speed = 1.5
+speed = 120
+min_distance = 100.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 modulate = Color( 0.972549, 0.752941, 0.752941, 1 )
@@ -51,6 +51,10 @@ script = ExtResource( 5 )
 script = ExtResource( 6 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 2.0
+default_color = Color( 1, 0, 0, 1 )
 [connection signal="area_entered" from="HitBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="Died" from="Health" to="." method="die"]
 [connection signal="HealthChanged" from="Health" to="StateMachine/Idle" method="_on_Health_HealthChanged"]

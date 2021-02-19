@@ -18,8 +18,9 @@ func update(_delta: float) -> void:
 # Virtual function. Corresponds to the `_physics_process()` callback.
 func physics_update(_delta: float) -> void:
 	result = owner.search_for_target()
-	if result.collider is Player and owner.is_on_screen():
-		state_machine.transition_to("Attack")
+	if result:
+		if result.collider is Player and owner.is_on_screen():
+			state_machine.transition_to("Attack")
 
 
 

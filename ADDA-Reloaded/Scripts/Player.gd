@@ -100,3 +100,8 @@ func _ready():
 	add_consumable(Consumables.Potion.instance())
 	send_health()
 	NodesManager.player = self
+	
+	var keys = Weapons.keys()
+	var key = keys[randi() % Weapons.size()]
+	print(key)
+	add_weapon(Weapons[key].instance())

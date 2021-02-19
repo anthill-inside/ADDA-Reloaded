@@ -1,15 +1,14 @@
-extends Node
+extends Navigation2D
 
 
-var player
-
-var enemies = []
-
-onready var nav2d
+# Declare member variables here. Examples:
+# var a = 2
+# var b = "text"
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	NodesManager.nav2d = self
 	pass # Replace with function body.
 
 

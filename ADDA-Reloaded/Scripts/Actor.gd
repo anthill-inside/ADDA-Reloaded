@@ -43,9 +43,7 @@ func _ready():
 	for _i in self.get_children ():
 		if _i.name == "WeaponSpawn":
 			weapon_spawn = _i
-			
-	var w = Weapons.values()
-	add_weapon(w[randi() % Weapons.size()].instance())
+
 
 
 var consumable 
