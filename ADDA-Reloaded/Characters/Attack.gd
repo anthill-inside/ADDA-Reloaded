@@ -26,37 +26,39 @@ func _follow_the_path(_delta):
 	
 	var point = points[0]
 	var curent_point =  owner.get_global_position()
-	
-	
+		
 	if point.distance_to(curent_point) < 10.0:
 		if points != null:		
 			points.remove(0)
 			if points.size() == 0:
-				get_points()	
-			point = points[0]
-			owner.line.points = points
-		
-	owner.look_at(owner.target.global_position)
-#	if (abs(angle) < owner.rotation_speed * _delta):		
-#		owner.look_at(point)
-#	else:
-#		owner.rotation += owner.rotation_dir * owner.rotation_speed * _delta
+				get_points()
+		else:
+			get_points()	
+		point = points[0]
+		owner.line.points = points
 	
-	var velocity: Vector2 = owner.velocity
-#	if abs(owner.get_angle_to(point)) < PI/2:
-	var desired: Vector2 = (point - owner.position).normalized() * owner.speed
-
 	
+	var angle = - owner.get_angle_to(point)
+	if angle < 0:
+		owner.rotation_dir = 1
+	elif angle > 0:
+		owner.rotation_dir = -1
+	else:
+		owner.rotation_dir = 0		
+	if (abs(angle) < owner.rotation_speed * _delta):		
+		owner.look_at(point)
+	else:
+		owner.rotation += owner.rotation_dir * owner.rotation_speed * _delta
+	
+	var velocity: Vector2 = owner.velocity#	if abs(owner.get_angle_to(point)) < PI/2:
+	var desired: Vector2 = (point - curent_point).normalized() * owner.speed
 	var steer = (desired - velocity).normalized() * owner.rotation_speed * 2 
 	velocity += steer 
 	velocity = velocity.clamped(owner.speed)
 		
-	
-#	velocity = (point - owner.global_position).normalized() * owner.speed
-	
 	owner.velocity =  velocity
-	
 	owner.velocity = owner.move_and_slide(velocity)
+	
 	
 func _attack_player(_delta):
 	
@@ -83,7 +85,7 @@ func _attack_player(_delta):
 	
 	var velocity: Vector2 = owner.velocity
 	if abs(owner.get_angle_to(point)) < PI/2:
-		var desired: Vector2 = (owner.target.position - owner.position).normalized() * owner.speed
+		var desired: Vector2 = (point - curent_point).normalized() * owner.speed
 
 		var steer = (desired - velocity).normalized() * owner.rotation_speed 
 		if curent_point.distance_to(point) < owner.min_distance:
@@ -105,8 +107,8 @@ func _attack_player(_delta):
 # Virtual function. Corresponds to the `_physics_process()` callback.
 func physics_update(_delta: float) -> void:
 	var result = owner.search_for_target()
-	if result:
-		if result.collider is Player and owner.is_on_screen():
+	if result and owner.is_on_screen():
+		if result.collider is Player:
 			following_a_path = false
 			points = null
 			_attack_player(_delta)
@@ -128,4 +130,6 @@ func enter(_msg := {}) -> void:
 # Virtual function. Called by the state machine before changing the active state. Use this function
 # to clean up the state.
 func exit() -> void:
-	pass
+	points = null
+	following_a_path = false
+

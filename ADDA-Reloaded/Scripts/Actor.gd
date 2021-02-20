@@ -127,9 +127,11 @@ func _physics_process(delta):
 
 
 func _on_HurtBox_area_entered(area):
-	area.emit_signal("Hit")
-	
-	health.set_health(health.current_health - area.damage)
-	var hit = HitAnimation.instance()
-	add_child(hit)
-	hit.global_position = global_position
+	if area.ready_to_strike:
+		area.emit_signal("Hit")
+		
+		health.set_health(health.current_health - area.damage)
+		var hit = HitAnimation.instance()
+		hit.modulate = Color.red
+		add_child(hit)
+		hit.global_position = global_position

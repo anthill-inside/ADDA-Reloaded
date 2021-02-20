@@ -27,7 +27,7 @@ polygon = PoolVector2Array( 3.73546, 17.0992, 15.6283, 4.1763, 15.6283, -1.44235
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 32
+collision_mask = 0
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="HitBox"]
 visible = false

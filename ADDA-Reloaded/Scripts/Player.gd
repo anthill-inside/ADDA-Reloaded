@@ -1,14 +1,8 @@
 
 extends Actor
 class_name Player
-#export var  speed = 200
-#export var rotation_speed = 1.5
-#var Weapon = preload ("res://Weapons/Weapon.tscn")
-#onready var Crossbow = preload ("res://Weapons/Crossbow.tscn")
-#var velocity = Vector2.ZERO
-#var rotation_dir = 0
 
-#var anim = "Idle"
+var interactable_items = []
 var item_to_interact  = null
 
 
@@ -53,18 +47,33 @@ func get_input():
 						_i.attack()
 
 
-func _physics_process(delta):		
+func _physics_process(delta):
+	_set_active_thingy()
 	rotation += rotation_dir * rotation_speed * delta
 	velocity = move_and_slide(velocity)
-#func _on_HurtBox_area_entered(area):
-	#pass # Replace with function body.
 
 
-func _set_active_thingy(thingy):
-	if(item_to_interact != null):
+func _set_active_thingy():
+	var square = INF
+	var index = 0
+	if interactable_items:
+		for i in interactable_items.size():
+			var new_square = interactable_items[i].global_position.distance_squared_to(global_position)
+			if new_square < square:
+				index = i
+				square = new_square
+		if(item_to_interact != null):
+			_free_active_thingy()
+		item_to_interact = interactable_items[index]
+		interactable_items[index].is_active = true
+
+	
+func _add_interactable_item(item):
+	interactable_items.append(item)
+func _remove_interactable_item(item):
+	if item == item_to_interact:
 		_free_active_thingy()
-	item_to_interact = thingy
-	thingy.is_active = true
+	interactable_items.erase(item)
 	
 func _free_active_thingy():
 	if(item_to_interact != null):
@@ -74,10 +83,10 @@ func _free_active_thingy():
 
 func _on_Interaction_zone_area_entered(area):
 	if !health.is_dead:
-		_set_active_thingy(area)
+		_add_interactable_item(area)
 
 func _on_Interaction_zone_area_exited(area):
-	_free_active_thingy()
+	_remove_interactable_item(area)
 
 
 func die():

@@ -21,11 +21,11 @@ func _ready():
 		p.connect("finished", self, "_on_stream_finished", [p])
 		p.bus = bus
 		
-#	music_player = AudioStreamPlayer.new()	
-#	add_child(music_player)
-#	music_player.stream = load("res://Audio/Music/stone fortress.ogg")
-#	music_player.volume_db = -6
-#	music_player.play()
+	music_player = AudioStreamPlayer.new()	
+	add_child(music_player)
+	music_player.stream = load("res://Audio/Music/111.ogg")
+	music_player.volume_db = -6
+	music_player.play()
 
 
 func _on_stream_finished(stream):

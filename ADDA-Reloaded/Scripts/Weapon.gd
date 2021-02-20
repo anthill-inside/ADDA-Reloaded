@@ -22,7 +22,8 @@ var state = WEAPON_STATE.READY
 signal attack()
 
 func _on_hit():
-	if curent_cool_down >= cool_down:
+	if state == WEAPON_STATE.READY:
+		damage_box.ready_to_strike = false
 		curent_cool_down = 0
 		weapon_sprite.modulate = Color("75544f4f")
 		emit_signal("attack")
@@ -34,16 +35,18 @@ func attack():
 	pass
 
 func _physics_process(delta):
-	if curent_cool_down < cool_down:
-		curent_cool_down += delta
-	else:
-		if state == WEAPON_STATE.USED:
+	if state == WEAPON_STATE.USED:
+		if curent_cool_down < cool_down:
+			curent_cool_down += delta
+		else:
+			damage_box.ready_to_strike = true
+			print("111111111111")
 			weapon_sprite.modulate = Color("ffffffff")
 			state = WEAPON_STATE.READY
 			if play_ready_sound:
 				AudioManager.play(ready_sound)
-		var last_hit_box = damage_box.last_hit_box;
-		if(last_hit_box is Area2D):
-			if damage_box.overlaps_area(last_hit_box):
-				last_hit_box.emit_signal("area_entered", damage_box)  
+	var last_hit_box = damage_box.last_hit_box;
+	if(last_hit_box is Area2D):
+		if damage_box.overlaps_area(last_hit_box):
+			last_hit_box.emit_signal("area_entered", damage_box)  
 	

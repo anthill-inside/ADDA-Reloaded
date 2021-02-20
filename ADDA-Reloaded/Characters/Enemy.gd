@@ -55,3 +55,4 @@ func _ready():
 		"Crossbow":
 			min_distance = 120.0
 			print(120.0)
+	weapon.get_node("DamageBox").set_collision_mask(0b1000)

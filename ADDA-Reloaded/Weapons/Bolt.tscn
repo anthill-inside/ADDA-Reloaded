@@ -15,7 +15,6 @@ height = 2.35298
 [node name="Bolt" type="KinematicBody2D"]
 rotation = 1.5708
 collision_layer = 0
-collision_mask = 0
 script = ExtResource( 3 )
 ground_weapon = "res://Audio/arrow.wav"
 attack_sound = "res://Audio/arrow.wav"
@@ -41,6 +40,9 @@ shape = SubResource( 2 )
 [node name="Timer" type="Timer" parent="."]
 process_mode = 0
 one_shot = true
+
+[node name="Point" type="Node2D" parent="."]
+position = Vector2( -5.72205e-05, -16.9496 )
 [connection signal="Hit" from="DamageBox" to="." method="_on_hit"]
 [connection signal="area_entered" from="DamageBox" to="DamageBox" method="_on_DamageBox_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

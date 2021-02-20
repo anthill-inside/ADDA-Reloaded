@@ -35,18 +35,11 @@ func attack():
 		AudioManager.play(attack_sound)
 	pass
 
-func get_input(): 
-	#if Input.is_action_pressed('Click'):
-		#attack()
-	pass
 			
 
 func _physics_process(delta):
-	if curent_cool_down < cool_down:
-		curent_cool_down += delta
-	else:
+	if curent_cool_down >= cool_down:
 		if state != WEAPON_STATE.READY:
 			state = WEAPON_STATE.READY
 			weapon_sprite.frame = 0
 			AudioManager.play(ready_sound)
-		get_input()
