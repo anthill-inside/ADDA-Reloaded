@@ -10,6 +10,7 @@ var ui : Node
 func _ready():
 	player = find_node_by_name(get_tree().get_root(), "Player")
 	ui = find_node_by_name(get_tree().get_root(), "UI")
+	NodesManager.nav2d = find_node_by_name(get_tree().get_root(),"Navigation2D")
 	print(ui.name + " " + player.name)
 
 

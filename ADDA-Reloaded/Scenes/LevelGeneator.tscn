@@ -1,18 +1,21 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://tileset experiment/icon.png/3x3_Tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://OLD TILESET.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/GeneratorCamera.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/LevelGeneator.gd" type="Script" id=3]
 
 [node name="Generator" type="Node2D"]
 script = ExtResource( 3 )
-number_of_rooms = 3
-
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 32, 32 )
-format = 1
+number_of_rooms = 7
+chance_to_generate = 30
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 script = ExtResource( 2 )
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = -2
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 327721, 0, 0 )

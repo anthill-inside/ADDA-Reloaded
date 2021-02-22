@@ -15,6 +15,8 @@ var player
 var curent_consumable 
 var curent_weapon
 
+var _connected = false
+
 onready var heart_boxes = [$Node2D/VBoxContainer/HBoxContainer/HeartBox]
 # Declare member variables here. Examples:
 # var a = 2
@@ -69,33 +71,40 @@ func _consumable_changed(new_consumable):#
 		curent_consumable.texture = default_consumable_texture
 # Called when the node enters the scene tree for the first time.
 func _ready():	
-	player = find_node_by_name(get_tree().get_root(), "Player")
-	weapon = player.weapon
-	consumable = player.consumable
+	if player != null:
+		_connect_ui()
 	
+	
+func _connect_ui():	
+	player = NodesManager.player
 	if(player != null):
+		player = find_node_by_name(get_tree().get_root(), "Player")
+		weapon = player.weapon
+		consumable = player.consumable
 		player.connect("death", self, "_death")
 		player.connect("HealthChanged", self, "_health_changed")
 		player.connect("WeaponChanged", self, "_weapon_changed")
 		player.connect("ConsumableChanged", self, "_consumable_changed")
 		
-	curent_consumable = $Node2D/VBoxContainer/CurenConsumable	
-	curent_weapon = $Node2D/VBoxContainer/CurenWeapon
-	if consumable != null:
-		curent_consumable.texture = consumable.icon
-	else:
-		curent_consumable.texture = default_consumable_texture
-		
-	if weapon != null:
-		curent_weapon.texture_under = weapon.icon
-		curent_weapon.max_value = weapon.cool_down * 10
-		curent_weapon.value = weapon.curent_cool_down * 10
-	else:
-		curent_weapon.texture_under = default_weapon_texture
-	
-
+		curent_consumable = $Node2D/VBoxContainer/CurenConsumable	
+		curent_weapon = $Node2D/VBoxContainer/CurenWeapon
+		if consumable != null:
+			curent_consumable.texture = consumable.icon
+		else:
+			curent_consumable.texture = default_consumable_texture
+			
+		if weapon != null:
+			curent_weapon.texture_under = weapon.icon
+			curent_weapon.max_value = weapon.cool_down * 10
+			curent_weapon.value = weapon.curent_cool_down * 10
+		else:
+			curent_weapon.texture_under = default_weapon_texture
+		_health_changed(player.health.max_health, player.health.current_health)
+		_connected = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if _connected == false:
+		_connect_ui()
 	if(weapon != null):
 		curent_weapon.value = weapon.curent_cool_down * 10
 

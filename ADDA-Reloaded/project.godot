@@ -69,13 +69,12 @@ _global_script_class_icons={
 [application]
 
 config/name="ADDA-Reloaded"
-run/main_scene="res://Scenes/Test2.tscn"
+run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 AudioManager="*res://AudioManager.gd"
-DrawLine3d="*res://DrawLine3D.gd"
 NodesManager="*res://NodesManager.gd"
 
 [display]

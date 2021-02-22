@@ -21,7 +21,9 @@ func _physics_process(delta):
 func search_for_target():
 	var space_state = get_world_2d().direct_space_state
 	# use global coordinates, not local to node
-	var result = space_state.intersect_ray(global_position, target.global_position,[self], 0b11)
+	var result = null
+	if target != null:
+		result = space_state.intersect_ray(global_position, target.global_position,[self], 0b11)
 	return result
 	
 func check_for_friends():

@@ -18,7 +18,7 @@ func get_points():
 	var start: Vector2 = owner.global_position;
 	var end: Vector2 = owner.target.global_position;
 	var path: PoolVector2Array = NodesManager.nav2d.get_simple_path(start, end, false)
-	#Enemy.set_path(path);
+#Enemy.set_path(path);
 	owner.line.points = path;
 	points = path
 
