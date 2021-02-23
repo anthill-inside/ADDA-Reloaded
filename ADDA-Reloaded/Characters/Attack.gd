@@ -112,13 +112,13 @@ func physics_update(_delta: float) -> void:
 			following_a_path = false
 			points = null
 			_attack_player(_delta)
-			owner.line.hide()
+			#owner.line.hide()
 		else:
 			if not following_a_path: 
 				get_points()
 				following_a_path = true
 			_follow_the_path(_delta)
-			owner.line.show()
+			#owner.line.show()
 
 # Virtual function. Called by the state machine upon changing the active state. The `msg` parameter
 # is a dictionary with arbitrary data the state can use to initialize itself.

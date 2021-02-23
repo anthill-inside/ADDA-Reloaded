@@ -44,7 +44,12 @@ func draw_room(room):
 			if (i == 0 or i == room_size.x - 1) or (j == 0 or j == room_size.y - 1):
 				tile_map.set_cell(coordinates.x + i, coordinates.y + j, 1)
 			else:
-				tile_map.set_cell(coordinates.x + i, coordinates.y + j, prefab.get_cell(i,j))
+				var tile_id = prefab.get_cell(i,j)
+				if tile_id == 0:
+					tile_map.set_atlas_tile(coordinates.x + i, coordinates.y + j, tile_id)
+				else:
+					tile_map.set_cell(coordinates.x + i, coordinates.y + j, tile_id)
+				#tile_map.update_bitmask_area(Vector2(coordinates.x + i, coordinates.y + j))
 	
 	for r in room.connected_rooms.keys():
 		
@@ -119,11 +124,21 @@ func place_room(room):
 
 func assign_rooms():
 	var start_room = placed_rooms[0]
+	
+	var distance = 0
+	var exit_room
+	
 	for room in placed_rooms:
-		var rng = RandomNumberGenerator.new()
-		room.scene = room_scenes[rng.randi_range(1, room_scenes.size() - 1)]
+		if room.coordinates.distance_to(start_room.coordinates) > distance:
+			exit_room = room
+			
+	for room in placed_rooms:
+		var rn = randi() % (room_scenes.size() - 2) + 2
+		room.scene = room_scenes[rn]
 		if room == start_room:
 			room.scene = room_scenes[0]
+		if room == exit_room:
+			room.scene = room_scenes[1]
 
 
 func generate():	
@@ -134,6 +149,7 @@ func generate():
 	dir.open("res://Rooms/")
 	dir.list_dir_begin (true)	
 	room_scenes.append(load("res://Rooms/SpecialRooms/StartRoom.tscn").instance())
+	room_scenes.append(load("res://Rooms/SpecialRooms/EndRoom.tscn").instance())
 	while true:
 		var file = dir.get_next()
 		if file == "":

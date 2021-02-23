@@ -26,7 +26,9 @@ func _input(event):
 		consumable.use(self)
 		emit_signal("ConsumableChanged",null)
 
-
+func add_weapon(new_weapon: Weapon):
+	.add_weapon(new_weapon)
+	new_weapon.weapon_sprite.light_mask = 2
 
 func get_input():
 	rotation_dir = 0

@@ -12,8 +12,8 @@ func _physics_process(delta):
 	if target == null: 
 		target = NodesManager.player
 		
-	line.global_position = Vector2.ZERO
-	line.rotation = -rotation
+#	line.global_position = Vector2.ZERO
+#	line.rotation = -rotation
 				
 	get_input()
 
@@ -46,6 +46,7 @@ func _ready():
 	var keys = Weapons.keys()
 	var key = keys[randi() % Weapons.size()]
 	add_weapon(Weapons[key].instance())
+	
 	
 	match key:
 		"Sword", "Mace":
