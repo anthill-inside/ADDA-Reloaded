@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://3x3_Tileset_doctored.tres" type="TileSet" id=1]
+[ext_resource path="res://Tilesets/3x3_Tileset_doctored.tres" type="TileSet" id=1]
 [ext_resource path="res://Characters/Player.tscn" type="PackedScene" id=2]
+
 
 [node name="Node2D" type="TileMap"]
 tile_set = ExtResource( 1 )

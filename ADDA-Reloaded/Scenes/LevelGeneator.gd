@@ -18,9 +18,6 @@ var starting_coordinates
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-func _input(event):
-	if event.is_action_pressed('Sword'):
-		generate()
 func fill_map():
 	for i in starting_coordinates.x * 2:
 		for j in starting_coordinates.y * 2:
@@ -107,7 +104,7 @@ func place_room(room):
 		placed_rooms = [room]
 		return
 	else:
-		var current_room = placed_rooms[0]
+		var current_room = placed_rooms[placed_rooms.size()-1]
 		var dir = current_room.get_random_direction(chance_to_generate)		
 		var new_current_room = check_dir(dir, current_room)
 		

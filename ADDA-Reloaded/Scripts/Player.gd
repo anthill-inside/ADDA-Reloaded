@@ -43,7 +43,7 @@ func get_input():
 		if Input.is_action_pressed('Up'):
 			velocity += transform.x * speed 
 			
-		if Input.is_action_pressed('Click'):
+		if Input.is_action_pressed("Attack"):
 			for _i in self.get_children ():
 					if _i is Weapon:
 						_i.attack()
@@ -108,11 +108,10 @@ func _on_Health_HealthChanged(max_health, current_health):
 
 func _ready():
 	._ready()
-	add_consumable(Consumables.Potion.instance())
-	send_health()
+	#add_consumable(Consumables.Potion.instance())
 	NodesManager.player = self
 	
-	var keys = Weapons.keys()
-	var key = keys[randi() % Weapons.size()]
-	print(key)
-	add_weapon(Weapons[key].instance())
+#	var keys = Weapons.keys()
+#	var key = keys[randi() % Weapons.size()]
+#	print(key)
+	add_weapon(Weapons.Crossbow.instance())

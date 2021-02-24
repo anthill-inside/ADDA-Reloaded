@@ -42,7 +42,7 @@ func _ready():
 #	remove_child(line)	
 #	get_tree().get_current_scene().add_child(line)
 	#line.global_position = Vector2(0,0)
-	NodesManager.enemies.push_back(self)
+	NodesManager.enemies.append(self)
 	var keys = Weapons.keys()
 	var key = keys[randi() % Weapons.size()]
 	add_weapon(Weapons[key].instance())

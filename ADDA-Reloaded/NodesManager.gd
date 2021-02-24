@@ -1,5 +1,6 @@
 extends Node
 
+var amulet
 
 var player
 

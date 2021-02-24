@@ -10,6 +10,19 @@ var queue = []  # The queue of sounds to play.
 
 var music_player = AudioStreamPlayer.new()
 
+var play_music = true
+var play_sounds = true
+
+
+func _input(event):
+	if event.is_action_pressed("ToggleSound"):
+		play_sounds = !play_sounds
+	if event.is_action_pressed("ToggleMusic"):
+		if play_music:
+			music_player.stop()
+		else:
+			music_player.play()
+		play_music = !play_music
 
 func _ready():
 	# Create the pool of AudioStreamPlayer nodes.
@@ -35,8 +48,9 @@ func _on_stream_finished(stream):
 
 
 func play(sound_path):
-	queue.append(sound_path)
-
+	if play_sounds:
+		queue.append(sound_path)
+	
 
 func _process(delta):
 	# Play a queued sound if any players are available.

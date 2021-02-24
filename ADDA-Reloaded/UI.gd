@@ -11,31 +11,40 @@ var curent_health
 var weapon
 var consumable
 var player
+var amulet
+
 
 var curent_consumable 
 var curent_weapon
 
 var _connected = false
 
-onready var heart_boxes = [$Node2D/VBoxContainer/HBoxContainer/HeartBox]
+onready var heart_boxes = [$Hud/VBoxContainer/HBoxContainer/HeartBox]
+onready var victory = $Victory
+onready var defeat = $Defeat
+onready var hud = $Hud
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+func _victory():
+	victory.show()
+	hud.hide()
 func _death():#
-	queue_free()
+	defeat.show()
+	hud.hide()
+	
 func _health_changed(new_max_health, new_current_healh):#
 	max_health = new_max_health
 	curent_health = new_current_healh
 	print(max_health as String + " " + curent_health as String)
 	
 	var n_boxes = max_health/2 + max_health%2
-	var boxes_now = $Node2D/VBoxContainer/HBoxContainer.get_child_count()
+	var boxes_now = $Hud/VBoxContainer/HBoxContainer.get_child_count()
 	
 	if boxes_now < n_boxes:
 		for i in n_boxes - boxes_now:
 			var n = heart_boxes[0].duplicate()
-			$Node2D/VBoxContainer/HBoxContainer/.add_child(n)
+			$Hud/VBoxContainer/HBoxContainer/.add_child(n)
 			heart_boxes.push_back(n)
 	var curent_box 
 	if curent_health % 2 == 0:
@@ -70,15 +79,15 @@ func _consumable_changed(new_consumable):#
 	else:
 		curent_consumable.texture = default_consumable_texture
 # Called when the node enters the scene tree for the first time.
-func _ready():	
-	if player != null:
-		_connect_ui()
 	
 	
 func _connect_ui():	
 	player = NodesManager.player
 	if(player != null):
-		player = find_node_by_name(get_tree().get_root(), "Player")
+		player = NodesManager.player
+		if player == null: return
+		amulet = NodesManager.amulet
+		if amulet == null: return
 		weapon = player.weapon
 		consumable = player.consumable
 		player.connect("death", self, "_death")
@@ -86,8 +95,11 @@ func _connect_ui():
 		player.connect("WeaponChanged", self, "_weapon_changed")
 		player.connect("ConsumableChanged", self, "_consumable_changed")
 		
-		curent_consumable = $Node2D/VBoxContainer/CurenConsumable	
-		curent_weapon = $Node2D/VBoxContainer/CurenWeapon
+		
+		amulet.connect("Victory", self, "_victory")
+		
+		curent_consumable = $Hud/VBoxContainer/CurenConsumable	
+		curent_weapon = $Hud/VBoxContainer/CurenWeapon
 		if consumable != null:
 			curent_consumable.texture = consumable.icon
 		else:
